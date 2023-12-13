@@ -14,7 +14,7 @@ func New() Store {
 }
 
 func (n note) Get(ctx *gofr.Context) ([]models.Note, error) {
-	data, err := ctx.DB().QueryContext(ctx, "SELECT note_id,title,content FROM notes ")
+	data, err := ctx.DB().QueryContext(ctx, "SELECT note_id,title,content,created_at,updated_at FROM notes ")
 	if err != nil {
 		panic(err)
 	}
@@ -27,7 +27,7 @@ func (n note) Get(ctx *gofr.Context) ([]models.Note, error) {
 	for data.Next() {
 		var n models.Note
 
-		err = data.Scan(&n.ID, &n.Title, &n.Content)
+		err = data.Scan(&n.ID, &n.Title, &n.Content, &n.Created, &n.Updated)
 
 		if err != nil {
 			panic(err)
@@ -69,7 +69,7 @@ func (n note) Create(ctx *gofr.Context, inp models.Note) (models.Note, error) {
 
 	queryFind := "SELECT note_id,title,content,created_at,updated_at FROM notes WHERE note_id=?"
 
-	_ = ctx.DB().QueryRowContext(ctx, queryFind, lastInsertId).Scan(&res.ID, &res.Title, &res.Content)
+	_ = ctx.DB().QueryRowContext(ctx, queryFind, lastInsertId).Scan(&res.ID, &res.Title, &res.Content, &res.Created, &res.Updated)
 
 	return res, nil
 
@@ -92,7 +92,7 @@ func (n note) Update(ctx *gofr.Context, id int, inp models.Note) (models.Note, e
 
 	queryFind := "SELECT note_id,title,content,created_at,updated_at FROM notes WHERE note_id=?"
 
-	_ = ctx.DB().QueryRowContext(ctx, queryFind, id).Scan(&res.ID, &res.Title, &res.Content)
+	_ = ctx.DB().QueryRowContext(ctx, queryFind, id).Scan(&res.ID, &res.Title, &res.Content, &res.Created, &res.Updated)
 
 	fmt.Println(res)
 
@@ -104,7 +104,7 @@ func (n note) Delete(ctx *gofr.Context, id int) (models.Note, error) {
 
 	queryFind := "SELECT note_id,title,content,created_at,updated_at FROM notes WHERE note_id=?"
 
-	_ = ctx.DB().QueryRowContext(ctx, queryFind, id).Scan(&res.ID, &res.Title, &res.Content)
+	_ = ctx.DB().QueryRowContext(ctx, queryFind, id).Scan(&res.ID, &res.Title, &res.Content, &res.Created, &res.Updated)
 
 	queryDelete := "DELETE FROM notes  WHERE note_id = ?"
 
