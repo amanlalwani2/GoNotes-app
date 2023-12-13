@@ -45,11 +45,12 @@ func (h handler) Create(ctx *gofr.Context) (interface{}, error) {
 
 	resp, err := h.store.Create(ctx, new_note)
 
-	fmt.Println("Created Success.")
 	if err != nil {
 
 		panic(err)
 	}
+
+	fmt.Println("Created Success.")
 
 	return resp, nil
 
@@ -77,10 +78,11 @@ func (h handler) Update(ctx *gofr.Context) (interface{}, error) {
 
 	resp, err := h.store.Update(ctx, int_id, new_note)
 
-	fmt.Println("Updated Success.")
 	if err != nil {
 		panic(err)
 	}
+
+	fmt.Println("Updated Success.")
 
 	return resp, nil
 
@@ -98,10 +100,11 @@ func (h handler) Delete(ctx *gofr.Context) (interface{}, error) {
 
 	resp, err := h.store.Delete(ctx, int_id)
 
-	fmt.Println("Deleted Success.")
 	if err != nil {
 		panic(err)
 	}
+
+	fmt.Println("Deleted Success.")
 
 	return resp, nil
 

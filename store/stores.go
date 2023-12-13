@@ -53,15 +53,14 @@ func (n note) Create(ctx *gofr.Context, inp models.Note) (models.Note, error) {
 	//Used to execute insert query
 	result, err := ctx.DB().ExecContext(ctx, queryInsert, inp.Title, inp.Content)
 
-	fmt.Println("Data Inserted Successfully")
 	if err != nil {
 
 		panic(err)
 	}
 
-	lastInsertId, err := result.LastInsertId()
+	fmt.Println("Data Inserted Successfully")
 
-	fmt.Printf("Last :%T", lastInsertId)
+	lastInsertId, err := result.LastInsertId()
 
 	if err != nil {
 
@@ -71,8 +70,6 @@ func (n note) Create(ctx *gofr.Context, inp models.Note) (models.Note, error) {
 	queryFind := "SELECT note_id,title,content,created_at,updated_at FROM notes WHERE note_id=?"
 
 	_ = ctx.DB().QueryRowContext(ctx, queryFind, lastInsertId).Scan(&res.ID, &res.Title, &res.Content, &res.Created, &res.Updated)
-
-	fmt.Println(res)
 
 	return res, nil
 
@@ -87,16 +84,11 @@ func (n note) Update(ctx *gofr.Context, id int, inp models.Note) (models.Note, e
 
 	_, err := ctx.DB().ExecContext(ctx, queryUpdate, inp.Title, inp.Content, id)
 
+	if err != nil {
+		panic(err)
+	}
+
 	fmt.Println("Updated Successfully")
-
-	if err != nil {
-		panic(err)
-	}
-
-	if err != nil {
-
-		panic(err)
-	}
 
 	queryFind := "SELECT note_id,title,content,created_at,updated_at FROM notes WHERE note_id=?"
 
@@ -120,16 +112,12 @@ func (n note) Delete(ctx *gofr.Context, id int) (models.Note, error) {
 
 	_, err := ctx.DB().ExecContext(ctx, queryDelete, id)
 
+	if err != nil {
+
+		panic(err)
+	}
+
 	fmt.Println("Deleted Successfully")
-
-	if err != nil {
-		panic(err)
-	}
-
-	if err != nil {
-
-		panic(err)
-	}
 
 	fmt.Println(res)
 
