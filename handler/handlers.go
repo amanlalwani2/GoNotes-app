@@ -6,6 +6,7 @@ import (
 
 	"github.com/amannlalwani/Notes-app-using-gofr/models"
 	"github.com/amannlalwani/Notes-app-using-gofr/store"
+	"gofr.dev/pkg/errors"
 	"gofr.dev/pkg/gofr"
 )
 
@@ -24,8 +25,9 @@ type response struct {
 func (h handler) Get(ctx *gofr.Context) (interface{}, error) {
 	resp, err := h.store.Get(ctx)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
+	fmt.Println("Retrieval Success.")
 	return response{Notes: resp}, nil
 }
 
@@ -36,18 +38,14 @@ func (h handler) Create(ctx *gofr.Context) (interface{}, error) {
 	err := ctx.Bind(&new_note)
 
 	if err != nil {
-		panic(err)
-	}
-	//checking as there is should be no empty value in title and content
-	if new_note.Title == "" || new_note.Content == "" {
-		return "Please enter a non-empty value in Title and Content ", nil
+		ctx.Logger.Errorf("error in binding: %v", err)
+		return nil, errors.InvalidParam{Param: []string{"body"}}
 	}
 
 	resp, err := h.store.Create(ctx, new_note)
 
 	if err != nil {
-
-		panic(err)
+		return nil, err
 	}
 
 	fmt.Println("Created Success.")
@@ -59,31 +57,29 @@ func (h handler) Create(ctx *gofr.Context) (interface{}, error) {
 func (h handler) Update(ctx *gofr.Context) (interface{}, error) {
 	var new_note models.Note
 
+	fmt.Println()
+
 	id := ctx.PathParam("id")
 
 	err := ctx.Bind(&new_note)
 	if err != nil {
-		panic(err)
+		ctx.Logger.Errorf("error in binding: %v", err)
+		return nil, errors.InvalidParam{Param: []string{"body"}}
 	}
 
 	int_id, err := strconv.Atoi(id)
 
 	if err != nil {
-		panic(err)
-	}
-	//checking as there is should be no empty value in title and content
-	if new_note.Title == "" || new_note.Content == "" {
-		return "Please enter a non-empty value in Title and Content ", nil
+		return nil, err
 	}
 
 	resp, err := h.store.Update(ctx, int_id, new_note)
 
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	fmt.Println("Updated Success.")
-
 	return resp, nil
 
 }
@@ -95,13 +91,13 @@ func (h handler) Delete(ctx *gofr.Context) (interface{}, error) {
 	int_id, err := strconv.Atoi(id)
 
 	if err != nil {
-		panic(err)
+		return nil, errors.InvalidParam{Param: []string{"body"}}
 	}
 
 	resp, err := h.store.Delete(ctx, int_id)
 
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	fmt.Println("Deleted Success.")
