@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/amannlalwani/Notes-app-using-gofr/models"
+	"gofr.dev/pkg/errors"
 	"gofr.dev/pkg/gofr"
 )
 
@@ -14,11 +15,16 @@ func New() Store {
 }
 
 func (n note) Get(ctx *gofr.Context) ([]models.Note, error) {
+
+	//retrieving notes from db
 	data, err := ctx.DB().QueryContext(ctx, "SELECT note_id,title,content FROM notes ")
 	if err != nil {
-		panic(err)
+		return nil, errors.DB{Err: err}
 	}
 
+	fmt.Println("Data Retrieved Successfully")
+
+	//making sure connection closes at end of this block.
 	defer data.Close()
 
 	notes := make([]models.Note, 0)
@@ -30,7 +36,7 @@ func (n note) Get(ctx *gofr.Context) ([]models.Note, error) {
 		err = data.Scan(&n.ID, &n.Title, &n.Content)
 
 		if err != nil {
-			panic(err)
+			return nil, errors.DB{Err: err}
 		}
 
 		notes = append(notes, n)
@@ -39,7 +45,7 @@ func (n note) Get(ctx *gofr.Context) ([]models.Note, error) {
 	err = data.Err()
 
 	if err != nil {
-		panic(err)
+		return nil, errors.DB{Err: err}
 	}
 
 	return notes, nil
@@ -48,14 +54,24 @@ func (n note) Get(ctx *gofr.Context) ([]models.Note, error) {
 func (n note) Create(ctx *gofr.Context, inp models.Note) (models.Note, error) {
 	var res models.Note
 
-	queryInsert := "INSERT INTO notes (title,content) VALUES (?,?)"
+	//checking as ID should be positive
+	if inp.ID < 0 {
+		return models.Note{}, errors.Error("Please enter a positive ID")
+	}
+
+	//checking as there is should be no empty value in title and content
+	if inp.Title == "" || inp.Content == "" {
+		return models.Note{}, errors.Error("Please enter a non-empty value in Title and Content")
+	}
+
+	// inserting input note into db
+	queryInsert := "INSERT INTO notes (note_id,title,content) VALUES (?,?,?)"
 
 	//Used to execute insert query
-	result, err := ctx.DB().ExecContext(ctx, queryInsert, inp.Title, inp.Content)
+	result, err := ctx.DB().ExecContext(ctx, queryInsert, inp.ID, inp.Title, inp.Content)
 
 	if err != nil {
-
-		panic(err)
+		return models.Note{}, errors.DB{Err: err}
 	}
 
 	fmt.Println("Data Inserted Successfully")
@@ -63,13 +79,20 @@ func (n note) Create(ctx *gofr.Context, inp models.Note) (models.Note, error) {
 	lastInsertId, err := result.LastInsertId()
 
 	if err != nil {
-
-		panic(err)
+		return models.Note{}, errors.DB{Err: err}
 	}
 
-	queryFind := "SELECT note_id,title,content,created_at,updated_at FROM notes WHERE note_id=?"
+	// Now using SELECT query to find the inserted row
+	queryFind := "SELECT note_id,title,content FROM notes WHERE note_id=?"
 
 	_ = ctx.DB().QueryRowContext(ctx, queryFind, lastInsertId).Scan(&res.ID, &res.Title, &res.Content)
+
+	// Handle the error if any
+	if err != nil {
+		return models.Note{}, errors.DB{Err: err}
+	}
+
+	fmt.Println("Response Generated Successfully")
 
 	return res, nil
 
@@ -77,24 +100,41 @@ func (n note) Create(ctx *gofr.Context, inp models.Note) (models.Note, error) {
 
 func (n note) Update(ctx *gofr.Context, id int, inp models.Note) (models.Note, error) {
 	var res models.Note
+	//checking as ID should be positive
+	if inp.ID < 0 {
+		return models.Note{}, errors.Error("Please enter a positive ID")
+	}
 
-	queryUpdate := "UPDATE notes SET title = ?, content = ? WHERE note_id = ?"
+	//checking as there is should be no empty value in title and content
+	if inp.Title == "" || inp.Content == "" {
+		return models.Note{}, errors.Error("Please enter a non-empty value in Title and Content")
+	}
+
+	//query to update the note with the id provided in the path
+	queryUpdate := "UPDATE notes SET note_id=?,title = ?, content = ? WHERE note_id = ?"
 
 	//used to run update query
 
-	_, err := ctx.DB().ExecContext(ctx, queryUpdate, inp.Title, inp.Content, id)
+	_, err := ctx.DB().ExecContext(ctx, queryUpdate, inp.ID, inp.Title, inp.Content, id)
 
 	if err != nil {
-		panic(err)
+		return models.Note{}, errors.DB{Err: err}
 	}
 
-	fmt.Println("Updated Successfully")
+	fmt.Println("Data Updated Successfully")
 
-	queryFind := "SELECT note_id,title,content,created_at,updated_at FROM notes WHERE note_id=?"
+	// Now using SELECT query to find the updated row
 
-	_ = ctx.DB().QueryRowContext(ctx, queryFind, id).Scan(&res.ID, &res.Title, &res.Content)
+	queryFind := "SELECT note_id,title,content FROM notes WHERE note_id=?"
 
-	fmt.Println(res)
+	err = ctx.DB().QueryRowContext(ctx, queryFind, inp.ID).Scan(&res.ID, &res.Title, &res.Content)
+
+	// Handle the error if any
+	if err != nil {
+		return models.Note{}, errors.DB{Err: err}
+	}
+
+	fmt.Println("Response Generated Successfully")
 
 	return res, nil
 }
@@ -102,9 +142,18 @@ func (n note) Update(ctx *gofr.Context, id int, inp models.Note) (models.Note, e
 func (n note) Delete(ctx *gofr.Context, id int) (models.Note, error) {
 	var res models.Note
 
-	queryFind := "SELECT note_id,title,content,created_at,updated_at FROM notes WHERE note_id=?"
+	// first using SELECT query to find the row to be deleted
+	queryFind := "SELECT note_id,title,content FROM notes WHERE note_id=?"
 
-	_ = ctx.DB().QueryRowContext(ctx, queryFind, id).Scan(&res.ID, &res.Title, &res.Content)
+	var error = ctx.DB().QueryRowContext(ctx, queryFind, id).Scan(&res.ID, &res.Title, &res.Content)
+
+	if error != nil {
+		return models.Note{}, errors.DB{Err: error}
+	}
+
+	fmt.Println("Response Generated Successfully")
+
+	//query to update the note with the id provided in the path
 
 	queryDelete := "DELETE FROM notes  WHERE note_id = ?"
 
@@ -113,13 +162,10 @@ func (n note) Delete(ctx *gofr.Context, id int) (models.Note, error) {
 	_, err := ctx.DB().ExecContext(ctx, queryDelete, id)
 
 	if err != nil {
-
-		panic(err)
+		return models.Note{}, errors.DB{Err: err}
 	}
 
-	fmt.Println("Deleted Successfully")
-
-	fmt.Println(res)
+	fmt.Println("Data Deleted Successfully")
 
 	return res, nil
 }
