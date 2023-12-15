@@ -90,5 +90,29 @@ func TestGetNotes(t *testing.T) {
 		notes   []models.Note
 		mockErr error
 		err     error
+	}{
+		{"Valid case with notes", []models.Note{
+			{ID: 1, Title: "TestTitle123", Content: "Testing Content 123"},
+			{ID: 2, Title: "TestTitle456", Content: "Testing Content 456"},
+		}, nil, nil},
+		{"Valid case with no notes", []models.Note{}, nil, nil},
+		{"Error case", nil, errors.Error("database error"), errors.DB{Err: errors.Error("Database error")}},
 	}
+
+	for index, testcase := range tests {
+		data := sqlmock.NewRows([]string{"note_id", "title", "content"})
+
+		for _, note := range testcase.notes {
+			data.AddRow(note.ID, note.Title, note.Content)
+		}
+
+		mock.ExpectQuery("SELECT note_id,title,content FROM notes").WillReturnRows(data).WillReturnError(testcase.mockErr)
+
+		store := New()
+		resp, err := store.Get(ctx)
+
+		assert.Equal(t, testcase.err, err, "TEST[%d],failed.\n%s", index, testcase.desc)
+		assert.Equal(t, testcase.notes, resp, "TEST[%d],failed.\n%s", index, testcase.desc)
+	}
+
 }
