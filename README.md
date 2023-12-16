@@ -118,6 +118,8 @@ http://localhost:3000
 https://documenter.getpostman.com/view/31295823/2s9Ykn81p8#5b48a552-4252-45fd-b6d4-5143c6f912bd
 ```
 ## Diagrams
-#### UML Diagram 
-<img src="https://iili.io/JuXPHhu.png" height="300" width="300" />
+#### Use-Case Diagram 
+<img src="https://iili.io/JuXPHhu.png" height="600" width="800" />
 
+#### Sequence Diagram 
+<img src="https://iili.io/JuXPHhu.png" height="600" width="800" />
