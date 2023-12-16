@@ -82,18 +82,18 @@ http://localhost:3000
 
 #### Get all notes
 
-```http
+```
   GET /notes
 ```
 #### Insert note
 
-```http
+```
   POST /notes
 ```
 
 #### Update note
 
-```http
+```
   PUT /notes/{id}
 ```
 | Parameter | Description                      |
@@ -103,7 +103,7 @@ http://localhost:3000
 
 #### Delete note
 
-```http
+```
   DELETE /notes/{id}
 ```
 | Parameter | Description                      |
