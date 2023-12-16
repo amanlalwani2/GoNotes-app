@@ -118,8 +118,8 @@ To run all the tests, run the following command(**I have achieved Unit Test Cove
   https://documenter.getpostman.com/view/31295823/2s9Ykn81p8#5b48a552-4252-45fd-b6d4-5143c6f912bd
 ```
 ## Diagrams
-#### Use-Case Diagram 
+#### **Use-Case Diagram** 
 <img src="https://iili.io/JuXPHhu.png" height="800" width="400" />
 
-#### Sequence Diagram 
+#### **Sequence Diagram** 
 <img src="https://iili.io/JuXU5Ml.md.png" height="800" width="400" />
