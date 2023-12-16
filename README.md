@@ -74,7 +74,7 @@ To run all the tests, run the following command(**I have achieved Unit Test Cove
 
 ## API Reference
 
-#### To test run APIS you have to use path:
+#### To test run APIS you have to use path(**Import the postman collection provided in the repo**):
 ```bash
   http://localhost:3000
 ```
@@ -112,7 +112,7 @@ To run all the tests, run the following command(**I have achieved Unit Test Cove
 
 
 
-## Postman Collection
+## Published Postman Collection
 
 ```bash
   https://documenter.getpostman.com/view/31295823/2s9Ykn81p8#5b48a552-4252-45fd-b6d4-5143c6f912bd
