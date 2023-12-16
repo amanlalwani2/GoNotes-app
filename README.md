@@ -41,7 +41,7 @@ docker exec -it gofr-mysql mysql -uroot -proot123 test_db -e "CREATE TABLE notes
 Clone the project
 
 ```bash
-  git clone [https://link-to-project](https://github.com/amanlalwani2/GoNotes-app.git)
+  git clone https://github.com/amanlalwani2/GoNotes-app.git
 ```
 
 Go to the project directory
@@ -68,7 +68,7 @@ Start the server
 To run all the tests, run the following command(**I have achieved Unit Test Coverage≥90%**)
 
 ```bash
-   go test ./...
+  go test ./...
 ```
 
 
@@ -76,7 +76,7 @@ To run all the tests, run the following command(**I have achieved Unit Test Cove
 
 #### To test run APIS you have to use path:
 ```bash
-http://localhost:3000
+  http://localhost:3000
 ```
 
 
@@ -115,7 +115,7 @@ http://localhost:3000
 ## Postman Collection
 
 ```bash
-https://documenter.getpostman.com/view/31295823/2s9Ykn81p8#5b48a552-4252-45fd-b6d4-5143c6f912bd
+  https://documenter.getpostman.com/view/31295823/2s9Ykn81p8#5b48a552-4252-45fd-b6d4-5143c6f912bd
 ```
 ## Diagrams
 #### Use-Case Diagram 
