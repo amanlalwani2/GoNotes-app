@@ -41,13 +41,13 @@ docker exec -it gofr-mysql mysql -uroot -proot123 test_db -e "CREATE TABLE notes
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone [https://link-to-project](https://github.com/amanlalwani2/GoNotes-app.git)
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd GoNotes-app
 ```
 
 Install dependencies along with gofr
