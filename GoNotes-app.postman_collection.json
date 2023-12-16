@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "806d4076-4510-4479-8220-be10fadac3c2",
+		"name": "GoNotes-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "31295823",
+		"_collection_link": "https://grey-resonance-96724.postman.co/workspace/22f66d28-f226-4e5e-9e54-e1fdfab655bc/collection/31295823-806d4076-4510-4479-8220-be10fadac3c2?action=share&source=collection_link&creator=31295823"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/notes",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \"note_id\":72,\r\n    \"title\":\"Sample Ttile\",\r\n    \"content\":\"Sample Content\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/notes",
+				"description": "This endpoint allows you to create a new note. The request should be sent as an HTTP POST to [http://localhost:3000/notes](http://localhost:3000/notes) with the following payload in the raw request body:\n\n``` json\n{\n    \"note_id\": 0,\n    \"title\": \"\",\n    \"content\": \"\"\n}\n\n ```\n\nUpon a successful execution, the response will have a status code of 201 and return the created note in the following format:\n\n``` json\n{\n    \"data\": {\n        \"note_id\": 0,\n        \"title\": \"\",\n        \"content\": \"\"\n    }\n}\n\n ```"
+			},
+			"response": [
+				{
+					"name": "http://localhost:3000/notes",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \"note_id\":72,\r\n    \"title\":\"Sample Ttile\",\r\n    \"content\":\"Sample Content\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/notes"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Authorization, Content-Type, x-requested-with, origin, true-client-ip, X-Correlation-ID"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "PUT, POST, GET, DELETE, OPTIONS, PATCH"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Correlation-Id",
+							"value": "099f76889b8911eeb46d8c8caae6c8c0"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 15 Dec 2023 20:32:16 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "74"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"note_id\": 72,\n        \"title\": \"Sample Ttile\",\n        \"content\": \"Sample Content\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "http://localhost:3000/notes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/notes",
+				"description": "# Retrieve Notes\n\nThis endpoint makes an HTTP GET request to retrieve a list of notes.\n\n### Response\n\n- Status: 200\n- Body:\n    \n\n``` json\n{\n    \"data\": {\n        \"Notes\": [\n            {\n                \"note_id\": 0,\n                \"title\": \"\",\n                \"content\": \"\"\n            }\n        ]\n    }\n}\n\n ```\n\nExample response:\n\n``` json\n{\n    \"data\": {\n        \"Notes\": [\n            {\n                \"note_id\": 11,\n                \"title\": \"Sample11 Ttile\",\n                \"content\": \"Sample11 Content\"\n            },\n            {\n                \"note_id\": 72,\n                \"title\": \"Sample Ttile\",\n                \"content\": \"Sample Content\"\n            }\n        ]\n    }\n}\n\n ```"
+			},
+			"response": [
+				{
+					"name": "http://localhost:3000/notes",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/notes"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Authorization, Content-Type, x-requested-with, origin, true-client-ip, X-Correlation-ID"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "PUT, POST, GET, DELETE, OPTIONS, PATCH"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Correlation-Id",
+							"value": "28a3bd5a9b8911eeb46d8c8caae6c8c0"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 15 Dec 2023 20:33:08 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "155"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"Notes\": [\n            {\n                \"note_id\": 11,\n                \"title\": \"Sample11 Ttile\",\n                \"content\": \"Sample11 Content\"\n            },\n            {\n                \"note_id\": 72,\n                \"title\": \"Sample Ttile\",\n                \"content\": \"Sample Content\"\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "http://localhost:3000/notes/72",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \"note_id\":108,\r\n    \"title\":\"Updated Sample Ttile\",\r\n    \"content\":\"Updated Sample Content\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/notes/72",
+				"description": "This HTTP PUT request is used to update a specific note identified by the note ID. The request should be sent to [http://localhost:3000/notes/{id}](http://localhost:3000/notes/{id}) with a payload in the raw request body type. The payload should include the note_id, title, and content of the note to be updated.\n\n### Request Body\n\n- `note_id` (number): The ID of the note to be updated.\n- `title` (string): The updated title of the note.\n- `content` (string): The updated content of the note.\n    \n\n### Response\n\n- Status: 200 OK\n- `data` (object)\n    - `note_id` (number): The ID of the updated note.\n    - `title` (string): The updated title of the note.\n    - `content` (string): The updated content of the note.\n\n#### Example Response\n\n``` json\n{\n    \"data\": {\n        \"note_id\": 108,\n        \"title\": \"Updated Sample Ttile\",\n        \"content\": \"Updated Sample Content\"\n    }\n}\n\n ```"
+			},
+			"response": [
+				{
+					"name": "http://localhost:3000/notes/72",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \"note_id\":108,\r\n    \"title\":\"Updated Sample Ttile\",\r\n    \"content\":\"Updated Sample Content\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/notes/72"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Authorization, Content-Type, x-requested-with, origin, true-client-ip, X-Correlation-ID"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "PUT, POST, GET, DELETE, OPTIONS, PATCH"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Correlation-Id",
+							"value": "51a44a0c9b8911eeb46d8c8caae6c8c0"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 15 Dec 2023 20:34:17 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "91"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"note_id\": 108,\n        \"title\": \"Updated Sample Ttile\",\n        \"content\": \"Updated Sample Content\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "http://localhost:3000/notes/108",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3000/notes/108",
+				"description": "This API endpoint allows you to delete a specific note using the note ID. The HTTP DELETE request is made to [http://localhost:3000/notes/{id}](http://localhost:3000/notes/72)."
+			},
+			"response": []
+		}
+	]
+}
