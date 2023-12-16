@@ -122,4 +122,4 @@ To run all the tests, run the following command(**I have achieved Unit Test Cove
 <img src="https://iili.io/JuXPHhu.png" height="800" width="400" />
 
 #### Sequence Diagram 
-<img src="https://iili.io/JuXPHhu.png" height="800" width="400" />
+<img src="https://iili.io/JuXU5Ml.md.png" height="800" width="400" />
