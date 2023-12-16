@@ -117,7 +117,7 @@ http://localhost:3000
 ```bash
 https://documenter.getpostman.com/view/31295823/2s9Ykn81p8#5b48a552-4252-45fd-b6d4-5143c6f912bd
 ```
-## Screenshots
-
-![App Screenshot](https://iili.io/JuXPHhu.png/468x300?text=App+Screenshot+Here)
+## Diagrams
+#### UML Diagram 
+<img src="https://iili.io/JuXPHhu.png" height="300" width="300" />
 
