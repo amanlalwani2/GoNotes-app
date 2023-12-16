@@ -119,7 +119,7 @@ https://documenter.getpostman.com/view/31295823/2s9Ykn81p8#5b48a552-4252-45fd-b6
 ```
 ## Diagrams
 #### Use-Case Diagram 
-<img src="https://iili.io/JuXPHhu.png" height="400" width="200" />
+<img src="https://iili.io/JuXPHhu.png" height="800" width="400" />
 
 #### Sequence Diagram 
-<img src="https://iili.io/JuXPHhu.png" height="600" width="800" />
+<img src="https://iili.io/JuXPHhu.png" height="800" width="400" />
