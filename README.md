@@ -31,7 +31,7 @@ You will have to run the mysql server and create a database locally using the fo
 docker run --name gofr-mysql -e MYSQL_ROOT_PASSWORD=root123 -e MYSQL_DATABASE=test_db -p 3306:3306 -d mysql:8.0.30
 ```
 
-Access test_db database and create table customer with columns id and name
+Access test_db database and create table notes with columns note_id,title and content
 
 ```bash
 docker exec -it gofr-mysql mysql -uroot -proot123 test_db -e "CREATE TABLE notes ( note_id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL UNIQUE, content TEXT NOT NULL);"
